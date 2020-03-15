@@ -1,16 +1,20 @@
 # nodejs-api
-NodeJS CRUD API example with express and mongodb.
+> NodeJS CRUD API example with express and mongodb.
 
 ## Install
 Clone repository to your local environment and than run 
 ```
-$ yarn install
+# install node packages
+$ yarn install # or npm install
+
+# start development server with nodemon
+$ yarn dev
 ```
 
-Create an .env file and insert DB_CONNECTION url (i.e. Atlas)
+Create an .env file and insert  DB_CONNECTION url (i.e. Atlas)
 
 ## Endpoints
-GET /posts => Get all posts
+GET /posts => Get all posts 
 GET /posts/:id => Get single post by id
 
 POST /posts => Create new post
