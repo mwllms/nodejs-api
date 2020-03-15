@@ -1,61 +1,70 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('../model/Post')
+const auth = require('../middleware/auth')
 
 // get all posts
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const posts = await Post.find()
-        res.json(posts)
-    } catch (err) {
         res.json({
-            message: err
+            data: posts
+        })
+    } catch (error) {
+        res.json({
+            error: error
         })
     }
 })
 
 // create a new post
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const post = new Post({
         title: req.body.title,
         description: req.body.description
     })
     try {
         const save = await post.save()
-        res.json(save)
-    } catch(err) {
         res.json({
-            message: err
+            data: save 
+        })
+    } catch(error) {
+        res.json({
+            error: error
         })
     }
 })
 
 // get single post by indentifier
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
-        res.json(post)
-    } catch (err) {
         res.json({
-            message: err
+            data: post 
+        })
+    } catch (error) {
+        res.json({
+            erorr: error
         })
     }
 })
 
 // delete single post by indentifier
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         const remove = await Post.remove({ _id: req.params.id })
-        res.json(remove)
-    } catch (err) {
         res.json({
-            message: err
+            data: remove 
+        })
+    } catch (error) {
+        res.json({
+            error: error
         })
     }
 })
 
 // update single post by indentifier
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     try {
         const update = await Post.updateOne(
             { 
@@ -68,10 +77,12 @@ router.patch('/:id', async (req, res) => {
                 }
             }
         )
-        res.json(update)
-    } catch (err) {
         res.json({
-            message: err
+            data: update
+        })
+    } catch (error) {
+        res.json({
+            error: error
         })
     }
 })

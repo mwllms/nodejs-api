@@ -7,6 +7,8 @@ require('dotenv/config')
 app.use(express.json())
 
 // routes
+const authRoutes = require('./routes/auth')
+app.use ('/auth', authRoutes)
 const postRoutes = require('./routes/posts')
 app.use('/posts', postRoutes)
 
